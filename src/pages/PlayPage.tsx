@@ -11,7 +11,10 @@ import { HubConnection } from "@microsoft/signalr";
 import { REGEXP_ONLY_CHARS } from "input-otp"
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
+import OtpComponent from "@/components/OtpComponent";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Terminal } from "lucide-react";
+import AlertComponent from "@/components/AlertComponent";
 
 
 export default function PlayPage() {
@@ -19,8 +22,6 @@ export default function PlayPage() {
     const [connection, setConnection] = useState<HubConnection>();
     const [en, setEn] = useState<string>();
     const [tr, setTr] = useState<string>();
-    const [count, setCount] = useState<number>(0);
-    const [inputData, setInputData] = useState<string>();
     const [solutions, setSolutions] = useState<Array<{ "answer": string, "isValid": boolean }>>(new Array());
 
     useEffect(() => {
@@ -34,11 +35,26 @@ export default function PlayPage() {
                 setEn(en);
                 setTr(tr);
             })
-
         }
         createConnection();
     }, [connection]);
 
+
+    const onFalse = (guess: string) => {
+        setSolutions([...solutions, { "answer": guess, "isValid": false }]);
+        if (checkCount() == 3) {
+
+        }
+    }
+
+    const onTrue = () => {
+
+        // setSolutions([...solutions, { "answer": en!, "isValid": true }]);
+    }
+
+    const checkCount = () => {
+        return solutions.filter(s => s.isValid == false).length;
+    }
 
     return (
         <div className="container">
@@ -49,55 +65,21 @@ export default function PlayPage() {
                         <CardDescription>{tr} | Try Count : {solutions.filter(s => s.isValid == false).length}</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="flex justify-center items-center pb-5">
-                            <div className="flex-initial">
-                                <InputOTP maxLength={en?.length!} pattern={REGEXP_ONLY_CHARS} className="uppercase" value={inputData} onChange={(inp) => { setInputData(inp) }} onComplete={(cmp, aaa) => {
-                                    var arr = [...solutions];
-                                    arr.push({ answer: cmp, isValid: cmp.toLocaleLowerCase() == en!.toLocaleLowerCase() });
-                                    setSolutions(arr);
-                                    setInputData("");
-                                    
-                                }}>
-                                    <InputOTPGroup>
-                                        {(en != null && [...en!].map((char, index) => {
-                                            return (
-                                                <><InputOTPSlot key={index} index={index} className="uppercase" /></>);
-                                        }))}
+                        <>
+                            <OtpComponent guessTest="" isReadonly={false} onFalse={onFalse} onTrue={onTrue} trueValue={en} key="guess" />
+                        </>
 
-                                    </InputOTPGroup>
-                                </InputOTP>
-                            </div>
-                            <div className="flex-initial pl-2">
-                                <Badge variant="outline">Badge</Badge>
-                            </div>
-                        </div>
-                        {solutions.map(s => {
-                            return <>
-                                <div className="flex justify-center items-center pb-5">
-                                    <div className="flex-initial">
-                                        <InputOTP maxLength={s.answer.length} pattern={REGEXP_ONLY_CHARS} className="uppercase" value={s.answer}>
-                                            <InputOTPGroup>
-                                                {(s.answer != null && [...s.answer!].map((char, index) => {
-                                                    return (
-                                                        <><InputOTPSlot key={index} index={index} className="uppercase" /></>);
-                                                }))}
-
-                                            </InputOTPGroup>
-                                        </InputOTP>
-                                    </div>
-                                    <div className="flex-initial pl-2">
-                                        <Badge variant="outline">{s.isValid ? "True" : "False"}</Badge>
-                                    </div>
-                                </div>
-                            </>
+                        {solutions.map((s, i) => {
+                            return (
+                                <>
+                                    <OtpComponent isReadonly={true} guessTest={s.answer} key={i} trueValue="" onTrue={() => { }} onFalse={() => { }} />
+                                </>)
                         })}
                     </CardContent>
                     <CardFooter>
                         <Button><Link to="/">Close</Link></Button>
                     </CardFooter>
                 </Card>
-
-
             </div>
         </div>
     )
