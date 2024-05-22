@@ -162,10 +162,10 @@ export function Dashboard() {
                 </div>
             </header>
             <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-                <AnimatePresence>
+                <AnimatePresence key="first-animate">
 
                     <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 100 }} transition={{ duration: 1.0 }} >
+                        <motion.div key="1" initial={{ opacity: 0 }} animate={{ opacity: 100 }} transition={{ duration: 1.0 }} >
                             <Card >
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                     <CardTitle className="text-sm font-medium">
@@ -180,7 +180,7 @@ export function Dashboard() {
                                     </p>
                                 </CardContent>
                             </Card></motion.div>
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 100 }} transition={{ duration: 1.5 }} > <Card x-chunk="dashboard-01-chunk-1">
+                        <motion.div key="2" initial={{ opacity: 0 }} animate={{ opacity: 100 }} transition={{ duration: 1.5 }} > <Card x-chunk="dashboard-01-chunk-1">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">
                                     Completed Sentences
@@ -195,7 +195,7 @@ export function Dashboard() {
                             </CardContent>
                         </Card>
                         </motion.div>
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 100 }} transition={{ duration: 2 }} >
+                        <motion.div key="3" initial={{ opacity: 0 }} animate={{ opacity: 100 }} transition={{ duration: 2 }} >
                             <Card>
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                     <CardTitle className="text-sm font-medium">Spended Time</CardTitle>
@@ -209,21 +209,21 @@ export function Dashboard() {
                                 </CardContent>
                             </Card>
                         </motion.div>
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 100 }} transition={{ duration: 2.5 }} >
+                        <motion.div key="4" initial={{ opacity: 0 }} animate={{ opacity: 100 }} transition={{ duration: 2.5 }} >
                             <Card>
-                            <CardHeader  className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle  className="text-xl font-medium">A2</CardTitle>
-                                <CardDescription className="text-xl">Next Level</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="text-xs text-muted-foreground">+25% from last week</div>
-                            </CardContent>
-                            <CardFooter>
-                                <Progress value={25} aria-label="25% increase" />
-                            </CardFooter>
-                        </Card></motion.div>
+                                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                    <CardTitle className="text-xl font-medium">A2</CardTitle>
+                                    <CardDescription className="text-xl">Next Level</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="text-xs text-muted-foreground">+25% from last week</div>
+                                </CardContent>
+                                <CardFooter>
+                                    <Progress value={25} aria-label="25% increase" />
+                                </CardFooter>
+                            </Card></motion.div>
                     </div>
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 100 }} transition={{ duration: 3 }} className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
+                    <motion.div key="5" initial={{ opacity: 0 }} animate={{ opacity: 100 }} transition={{ duration: 3 }} className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
                         <Card className="col-span-4" >
                             <CardHeader className="flex flex-row items-center">
                                 <div className="grid gap-2">

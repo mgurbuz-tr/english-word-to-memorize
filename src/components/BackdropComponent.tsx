@@ -6,7 +6,7 @@ const Backdrop = ({ show }: { show: boolean }) => {
     }
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 blur-lg z-40"></div>
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 blur-lg z-40" style={{backgroundColor:"hsl(0deg 0% 0% / 39%)"}}></div>
     );
 };
 

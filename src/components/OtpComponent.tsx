@@ -1,7 +1,6 @@
 import { REGEXP_ONLY_CHARS } from "input-otp";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp";
 import { useState } from "react";
-import _ from 'lodash';
 import { Badge } from "./ui/badge";
 
 
@@ -28,23 +27,22 @@ export default function OtpComponent(
         return (
             <div className="flex pb-5">
                 <div className="flex-initial">
-                    <InputOTP
+                    <InputOTP key="editable"
                         maxLength={trueValue?.length!}
                         pattern={REGEXP_ONLY_CHARS}
                         className="uppercase"
                         value={otpText}
                         onChange={(inp) => { setOtpText(inp) }} onComplete={onComplete}>
-                        <InputOTPGroup>
+                        <InputOTPGroup key="otp-group">
                             {(trueValue != null && [...trueValue!].map((char, index) => {
                                 return (
-                                    <><InputOTPSlot key={index} index={index} className="uppercase" /></>);
+                                   <InputOTPSlot key={"source"+index} index={index} className="uppercase" />);
                             }))}
 
                         </InputOTPGroup>
                     </InputOTP>
                 </div>
                 <div className="flex-initial pl-2 ">
-                    <Badge variant="outline" className="hidden"></Badge>
                 </div>
             </div>
         );
@@ -52,18 +50,18 @@ export default function OtpComponent(
         return (
             <div className="flex justify-center items-center pb-5">
                 <div className="flex-initial">
-                    <InputOTP maxLength={guessTest!.length} pattern={REGEXP_ONLY_CHARS} className="uppercase" value={guessTest!}>
+                    <InputOTP key="readable" maxLength={guessTest!.length} pattern={REGEXP_ONLY_CHARS} className="uppercase" value={guessTest!}>
                         <InputOTPGroup>
                             {(guessTest != null && [...guessTest!].map((char, index) => {
                                 return (
-                                    <><InputOTPSlot key={index} index={index} className="uppercase" /></>);
+                                   <InputOTPSlot key={"dest"+index} index={index} className="uppercase" />);
                             }))}
 
                         </InputOTPGroup>
                     </InputOTP>
                 </div>
                 <div className="flex-initial pl-2">
-                    <Badge variant="destructive">False</Badge>
+                    <Badge key="false" variant="destructive">False</Badge>
                 </div>
             </div>
         );

@@ -3,21 +3,20 @@ import Backdrop from './BackdropComponent';
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
 import { Terminal } from 'lucide-react';
 
-export default function AlertComponent() {
-    const [showAlert, setShowAlert] = useState(true);
+export default function AlertComponent(props: { onClick: () => void, showAlert: boolean, state: boolean, header: string, description: string }) {
 
     return (
-        <>
-            <Backdrop show={showAlert} />
-            {showAlert && (
+        <div onClick={()=>{props.onClick();}}>
+            <Backdrop show={props.showAlert} />
+            {props.showAlert && (
                 <Alert>
-                    <Terminal className="h-4 w-4" />
-                    <AlertTitle>Heads up!</AlertTitle>
+                    <Terminal size={16} />
+                    <AlertTitle>{props.header}</AlertTitle>
                     <AlertDescription>
-                        You can add components and dependencies to your app using the cli.
+                        {props.description}
                     </AlertDescription>
                 </Alert>
             )}
-        </>
+        </div>
     );
 };
